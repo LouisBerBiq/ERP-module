@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_rental_root" name="Rentals" sequence="10"/>
+    
+    <menuitem id="menu_rental_orders" name="Rental Orders" 
+              parent="menu_rental_root" action="action_rental_order" sequence="1"/>
+</odoo>

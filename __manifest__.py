@@ -1,33 +1,23 @@
 {
-    'name': "rental",
-
-    'summary': "Short (1 phrase/line) summary of the module's purpose",
-
+    'name': 'Rental Management',
+    'version': '19.0.1.0.0',
+    'category': 'Sales',
+    'summary': 'Manage rental orders with invoicing',
     'description': """
-Long description of module's purpose
+        Rental Management Module
+        ========================
+        * Create rental orders with start and end dates
+        * Automatic price calculation
+        * Invoice generation
+        * Status management (draft, confirmed, in progress, done, cancelled)
     """,
-
-    'author': "My Company",
-    'website': "https://www.yourcompany.com",
-
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/15.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
-    'category': 'Uncategorized',
-    'version': '0.1',
-
-    # any module necessary for this one to work correctly
-    'depends': ['base'],
-
-    # always loaded
+    'author': 'Your Company',
     'data': [
-        # 'security/ir.model.access.csv',
-        'views/views.xml',
-        'views/templates.xml',
+        'security/ir.model.access.csv',
+        'views/rental_order_views.xml',
+        'views/rental_menu.xml',        
     ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
-    ],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
 }
-
