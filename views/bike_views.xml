@@ -23,14 +23,21 @@
             <form>
                 <header>
                     <button name="action_confirm" string="Confirmer" type="object" class="btn-primary" invisible="state != 'draft'"/>
-                    <button name="action_done" string="Retour Vélo" type="object" invisible="state != 'confirm'"/>
+                    <button name="action_done" string="Retourner Vélo" type="object" invisible="state not in ['in_progress']"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
+                    <div class="alert alert-warning" role="alert" invisible="days_overdue &lt;= 0">
+                        <strong>Attention!</strong> Ce vélo est en retard de <field name="days_overdue"/> jour(s)
+                    </div>
                     <div class="oe_title"><h1><field name="name"/></h1></div>
                     <group>
                         <group><field name="partner_id"/><field name="bike_id"/></group>
-                        <group><field name="start_date"/><field name="end_date"/><field name="total_price"/></group>
+                        <group><field name="start_date"/><field name="end_date"/></group>
+                    </group>
+                    <group>
+                        <group><field name="total_price"/><field name="late_fee" invisible="days_overdue &lt;= 0"/></group>
+                        <group><field name="days_overdue"/></group>
                     </group>
                 </sheet>
             </form>
@@ -45,6 +52,8 @@
                 <field name="name"/>
                 <field name="partner_id"/>
                 <field name="bike_id"/>
+                <field name="end_date"/>
+                <field name="days_overdue"/>
                 <field name="total_price"/>
                 <field name="state"/>
             </list>
