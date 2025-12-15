@@ -18,7 +18,7 @@ class BikeRental(models.Model):
     return_date = fields.Date(string="Date retour réelle", readonly=True)
     state = fields.Selection([
         ('draft', 'Brouillon'), ('in_progress', 'Loué'),
-        ('overdue', 'En retard'), ('done', 'Terminé'), 
+        ('done', 'Retourné'), 
     ], default='draft', string="État")
     total_price = fields.Float(string="Prix Total", compute='_compute_total_price', store=True)
     days_overdue = fields.Integer(string="Jours en retard", compute='_compute_days_overdue', store=True)
@@ -36,7 +36,7 @@ class BikeRental(models.Model):
     def _compute_days_overdue(self):
         today = fields.Date.today()
         for record in self:
-            if record.state in ['in_progress', 'overdue']:
+            if record.state == 'in_progress':
                 check_date = record.return_date or today
                 days = (check_date - record.end_date).days
                 record.days_overdue = max(days, 0)
@@ -50,9 +50,4 @@ class BikeRental(models.Model):
     
     def action_done(self):
         self.return_date = fields.Date.today()
-        # Compute days overdue locally to avoid timing issues with computed fields
-        days_overdue = (self.return_date - self.end_date).days
-        if days_overdue > 0:
-            self.state = 'overdue'
-        else:
-            self.state = 'done'
+        self.state = 'done'
