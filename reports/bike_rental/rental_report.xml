@@ -1,0 +1,25 @@
+<odoo>
+    <record id="action_report_rental" model="ir.actions.report">
+        <field name="name">Contrat de Location</field>
+        <field name="model">bike.rental</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bike_rental.report_rental_template</field>
+        <field name="report_file">bike_rental.report_rental_template</field>
+        <field name="binding_model_id" ref="model_bike_rental"/>
+    </record>
+
+    <template id="report_rental_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Contrat : <span t-field="o.name"/></h2>
+                        <p>Client : <span t-field="o.partner_id.name"/></p>
+                        <p>Vélo : <span t-field="o.bike_id.name"/></p>
+                        <p>Prix Total : <span t-field="o.total_price"/> €</p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

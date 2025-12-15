@@ -1,0 +1,10 @@
+<odoo>
+    <record id="action_bike_rental" model="ir.actions.act_window">
+        <field name="name">Locations</field>
+        <field name="res_model">bike.rental</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_bike_root" name="Location Vélos"/>
+    <menuitem id="menu_bike_rental" name="Contrats" parent="menu_bike_root" action="action_bike_rental"/>
+</odoo>

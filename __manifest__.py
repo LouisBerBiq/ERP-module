@@ -1,23 +1,17 @@
+# -*- coding: utf-8 -*-
 {
-    'name': 'Rental Management',
-    'version': '19.0.1.0.0',
+    'name': "Gestion Location Vélos",
+    'summary': "Vente et Location de vélos",
+    'description': """Module pour gérer un magasin de vélos""",
+    'author': "Léo",
     'category': 'Sales',
-    'summary': 'Manage rental orders with invoicing',
-    'description': """
-        Rental Management Module
-        ========================
-        * Create rental orders with start and end dates
-        * Automatic price calculation
-        * Invoice generation
-        * Status management (draft, confirmed, in progress, done, cancelled)
-    """,
-    'author': 'Your Company',
+    'version': '0.1',
+    'depends': ['base', 'sale', 'product'],
     'data': [
         'security/ir.model.access.csv',
-        'views/rental_order_views.xml',
-        'views/rental_menu.xml',        
+        'views/bike_views.xml',
+        'views/bike_menus.xml',
+        # 'reports/rental_report.xml',
     ],
-    'installable': True,
     'application': True,
-    'auto_install': False,
 }

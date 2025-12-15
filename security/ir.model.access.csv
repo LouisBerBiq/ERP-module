@@ -1,3 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_rental_order_user,rental.order.user,model_rental_order,base.group_user,1,1,1,0
-access_rental_order_manager,rental.order.manager,model_rental_order,sales_team.group_sale_manager,1,1,1,1
+access_bike_rental_user,bike.rental.user,model_bike_rental,base.group_user,1,1,1,1
