@@ -36,8 +36,11 @@
                         <group><field name="start_date"/><field name="end_date"/></group>
                     </group>
                     <group>
-                        <group><field name="total_price"/><field name="late_fee" invisible="days_overdue &lt;= 0"/></group>
-                        <group><field name="days_overdue"/></group>
+                        <group>
+                            <field name="total_price"/>
+                            <field name="late_fee_percentage" widget="percentage" invisible="state != 'draft'"/>
+                            <field name="late_fee" invisible="days_overdue &lt;= 0"/>
+                        </group>
                     </group>
                 </sheet>
             </form>

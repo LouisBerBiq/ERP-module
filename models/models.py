@@ -22,6 +22,8 @@ class BikeRental(models.Model):
     ], default='draft', string="État")
     total_price = fields.Float(string="Prix Total", compute='_compute_total_price', store=True)
     days_overdue = fields.Integer(string="Jours en retard", compute='_compute_days_overdue', store=True)
+    late_fee_percentage = fields.Float(string="% Frais de retard par jour", default=0.1)
+    late_fee = fields.Float(string="Frais de retard", compute='_compute_late_fee', store=True, readonly=True)
 
     @api.depends('start_date', 'end_date', 'bike_id.rent_price_day')
     def _compute_total_price(self):
@@ -42,6 +44,14 @@ class BikeRental(models.Model):
                 record.days_overdue = max(days, 0)
             else:
                 record.days_overdue = 0
+
+    @api.depends('days_overdue', 'total_price', 'late_fee_percentage')
+    def _compute_late_fee(self):
+        for record in self:
+            if record.days_overdue > 0:
+                record.late_fee = (record.total_price * record.late_fee_percentage) * record.days_overdue
+            else:
+                record.late_fee = 0
 
     def action_confirm(self):
         self.state = 'in_progress'
