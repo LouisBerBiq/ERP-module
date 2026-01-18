@@ -61,3 +61,34 @@ class BikeRental(models.Model):
     def action_done(self):
         self.return_date = fields.Date.today()
         self.state = 'done'
+
+    def action_create_invoice(self):
+        # On vérifie qu'il y a un client et un vélo
+        if not self.partner_id or not self.bike_id:
+            return
+        
+        # On prépare les lignes de la facture (le vélo loué)
+        invoice_lines = [(0, 0, {
+            'product_id': self.bike_id.id,
+            'name': f"Location Vélo: {self.bike_id.name}",
+            'quantity': 1,
+            'price_unit': self.total_price,  # On utilise le prix total calculé
+        })]
+
+        # On crée la facture (account.move)
+        invoice = self.env['account.move'].create({
+            'move_type': 'out_invoice',        # Facture client
+            'partner_id': self.partner_id.id,  # Le client
+            'invoice_date': fields.Date.today(),
+            'invoice_line_ids': invoice_lines,
+        })
+        
+        # Optionnel : On ouvre la vue de la facture créée pour la montrer à l'utilisateur
+        return {
+            'name': 'Facture Client',
+            'type': 'ir.actions.act_window',
+            'res_model': 'account.move',
+            'res_id': invoice.id,
+            'view_mode': 'form',
+            'target': 'current',
+        }
