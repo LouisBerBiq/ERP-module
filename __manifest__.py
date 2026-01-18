@@ -6,7 +6,7 @@
     'author': "Léo",
     'category': 'Sales',
     'version': '0.1',
-    'depends': ['base', 'sale', 'product'],
+    'depends': ['base', 'sale', 'product','account'],
     'data': [
         'security/ir.model.access.csv',
         'views/bike_views.xml',
