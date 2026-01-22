@@ -8,6 +8,7 @@
     'version': '0.1',
     'depends': ['base', 'sale', 'product','account'],
     'data': [
+        'data/sequence_data.xml',
         'security/ir.model.access.csv',
         'views/bike_views.xml',
         'views/bike_menus.xml',

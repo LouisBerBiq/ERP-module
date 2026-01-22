@@ -56,6 +56,7 @@ class BikeRental(models.Model):
     def action_confirm(self):
         self.state = 'in_progress'
         if self.name == 'Nouveau':
+            # TODO: Fix sequence code 'bike.rental' returning None
             self.name = self.env['ir.sequence'].next_by_code('bike.rental') or 'LOC'
     
     def action_done(self):
